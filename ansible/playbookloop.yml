@@ -1,0 +1,30 @@
+
+---
+ - name: Loops Test
+   hosts: all
+   become: yes
+
+   tasks:
+   - name: Say hello
+     yum: name={{ item }} state=latest
+     loop:
+          - vim
+          - tmux
+          - git  
+
+   - name: Loop oUtil example
+     shell: echo -n Z >> myfile.txt && cat myfile.txt
+     register: output
+     delay: 2
+     retries: 10
+     until: output.stdout.find("ZZZZZZ") == false
+
+   - name: Print final output
+     debug:
+      var: output.stdout
+
+   - name: Say hi
+     debug: msg="hello {{ item }}"
+     loop:
+       - "Vasya"
+       - "Fenya"

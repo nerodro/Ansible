@@ -1,0 +1,36 @@
+
+---
+# tasks file for deploy_apache_web
+- name: Check Linux
+  debug: var=ansible_os_family
+
+- block: # Block for Redhat
+
+  - name: Install Apache Web Server
+    yum: name=apache2 state=latest
+
+
+    - name: Start Webserver
+      service: name=apache2 state=started enabled=yes
+
+when: ansible_os_family=="RedHat"
+
+- block: #Block for Debian
+
+  - name: Intsall htop for debian
+    apt: name=htop state=latest
+
+    - name: Start Webserver
+      service: name=apache2 state=started enabled=yes
+
+when: ansible_os_family=="Debian"
+
+- name: Copy my Web site
+  copy: src={{ item }} dest={{ destin_folder }} mode=0555
+  loop:
+     - "index.php"
+     - "books.php"
+     - "soviet.php"
+     - "blog"
+     - "style"
+  notify: Restart Apache

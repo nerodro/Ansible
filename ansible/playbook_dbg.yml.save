@@ -1,0 +1,17 @@
+
+---
+ - name: My playbook
+   hosts: all
+   become: yes
+
+   vars:
+    message1: Prive
+    secret: HZ
+
+   tasks:
+    - name: Print
+      debug:
+
+
+       var: secret
+

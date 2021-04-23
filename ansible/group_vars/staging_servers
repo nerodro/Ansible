@@ -1,0 +1,9 @@
+
+---
+ansible_user                : nerodro
+ansible_ssh_public_key_file : /home/user/.ssh/id_rsa.pem
+ansible_ssh_pass            : '123'
+ansible_become		    : yes
+ansible_become_method	    : sudo
+ansible_become_password	    : '123'
+

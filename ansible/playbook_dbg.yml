@@ -1,0 +1,31 @@
+
+---
+ - name: My playbook
+   hosts: all
+   become: yes
+
+   vars:
+    message1: Prive
+    secret: HZ
+
+   tasks:
+    - name: Print
+      debug:
+       var: secret
+    - debug:
+       msg: "Secret word {{ secret  }}"
+
+    - debug:
+       msg: "Owner this host is Nikita"
+
+    - set_fact: full_message="{{ message1 }} {{ secret }}"
+    - debug:
+       var: full_message
+
+    - debug:
+       var: ansible_distribution
+    - shell: uptime
+      register: result
+ 
+    - debug:
+       var: result
